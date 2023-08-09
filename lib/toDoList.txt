@@ -1,0 +1,7 @@
+- Fazer tela de como utilizar o app quando o usuario se cadastrar;
+
+-Consertar tela de menu que não para de carregar quando o usuário é logado;
+-Construir um streambuilder para as bebidas
+
+
+
