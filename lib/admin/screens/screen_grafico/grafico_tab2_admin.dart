@@ -25,81 +25,92 @@ class _GraficoScreenTab2ADMState extends State<GraficoScreenTab2ADM> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade800,
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Text("PORCENTAGEM DE VENDAS POR TAMANHO:",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: MyColors.backGround,
-                    fontWeight: FontWeight.w700,
-                    textBaseline: TextBaseline.alphabetic,
-                    fontSize: MediaQuery.of(context).size.width * 0.05)),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              porcentagemTamanho(
-                  title: "Tamanho Pequeno",
-                  height: widget.info['quantP'] / widget.info['totalQuant'],
-                  quant: widget.info['quantP'],
-                  price: widget.info['priceP'],
-                  haveData: widget.info.values.any((element) => element != 0)),
-              porcentagemTamanho(
-                  title: "Tamanho Médio",
-                  height: widget.info['quantM'] / widget.info['totalQuant'],
-                  quant: widget.info['quantM'],
-                  price: widget.info['priceM'],
-                  haveData: widget.info.values.any((element) => element != 0)),
-              porcentagemTamanho(
-                title: "Tamanho Grande",
-                height: widget.info['quantG'] / widget.info['totalQuant'],
-                quant: widget.info['quantG'],
-                price: widget.info['priceG'],
-                haveData: widget.info.values.any((element) => element != 0),
-              ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 8.0),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-                color: MyColors.backGround,
-                borderRadius: BorderRadius.circular(12)),
-            child: widget.info.values.any((element) => element != 0)
-                ? Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Marmitas Vendidas: R\$${widget.info['totalPrice']}"
-                        "0",
-                        style: _style,
-                      ),
-                      Text(
-                        "Bebidas Vendidas: R\$${widget.info['priceB']} ",
-                        style: _style,
-                      ),
-                      Text(
-                        "Total dos fretes: R\$${widget.info['priceT']}",
-                        style: _style,
-                      ),
-                      Text(
-                        "Quantidade Total Vendida: ${widget.info['totalQuant']} ",
-                        style: _style,
-                      ),
-                    ],
-                  )
-                : Text(
-                    "Nenhuma informação sobre esse mês!",
-                    style: _style,
-                  ),
-          )
-        ],
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.grey.shade800,
+        centerTitle: true,
+        title: Text(
+            "Total: R\$${widget.info['totalPrice'] + widget.info['priceB'] + widget.info['priceT']}0"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text("PORCENTAGEM DE VENDAS POR TAMANHO:",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: MyColors.backGround,
+                      fontWeight: FontWeight.w700,
+                      textBaseline: TextBaseline.alphabetic,
+                      fontSize: MediaQuery.of(context).size.width * 0.05)),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                porcentagemTamanho(
+                    title: "Tamanho Pequeno",
+                    height: widget.info['quantP'] / widget.info['totalQuant'],
+                    quant: widget.info['quantP'],
+                    price: widget.info['priceP'],
+                    haveData:
+                        widget.info.values.any((element) => element != 0)),
+                porcentagemTamanho(
+                    title: "Tamanho Médio",
+                    height: widget.info['quantM'] / widget.info['totalQuant'],
+                    quant: widget.info['quantM'],
+                    price: widget.info['priceM'],
+                    haveData:
+                        widget.info.values.any((element) => element != 0)),
+                porcentagemTamanho(
+                  title: "Tamanho Grande",
+                  height: widget.info['quantG'] / widget.info['totalQuant'],
+                  quant: widget.info['quantG'],
+                  price: widget.info['priceG'],
+                  haveData: widget.info.values.any((element) => element != 0),
+                ),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                  color: MyColors.backGround,
+                  borderRadius: BorderRadius.circular(12)),
+              child: widget.info.values.any((element) => element != 0)
+                  ? Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Marmitas Vendidas: R\$${widget.info['totalPrice']}"
+                          "0",
+                          style: _style,
+                        ),
+                        Text(
+                          "Bebidas Vendidas: R\$${widget.info['priceB']} ",
+                          style: _style,
+                        ),
+                        Text(
+                          "Total dos fretes: R\$${widget.info['priceT']}",
+                          style: _style,
+                        ),
+                        Text(
+                          "Quantidade Total Vendida: ${widget.info['totalQuant']} ",
+                          style: _style,
+                        ),
+                      ],
+                    )
+                  : Text(
+                      "Nenhuma informação sobre esse mês!",
+                      style: _style,
+                    ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -126,7 +137,7 @@ class _GraficoScreenTab2ADMState extends State<GraficoScreenTab2ADM> {
                   borderRadius: BorderRadius.circular(12)),
               child: haveData == true
                   ? Stack(
-                    alignment: Alignment.bottomCenter,
+                      alignment: Alignment.bottomCenter,
                       children: [
                         Container(
                           alignment: Alignment.bottomCenter,

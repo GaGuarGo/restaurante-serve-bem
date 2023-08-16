@@ -48,6 +48,7 @@ android {
         targetSdkVersion 24
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        compileSdkVersion 33
 
         multiDexEnabled true
     }
